@@ -1,0 +1,45 @@
+\subsection{Limitations}
+\label{subsec:limitations}
+
+Several limitations qualify this survey. First, the benchmark corpus
+analyzed in Section~\ref{sec:evaluation_benchmarking} is a 2024--2026 snapshot;
+fifteen of the eighteen benchmarks were arXiv preprints at the time of
+writing and may have been peer-reviewed or superseded since. Claims
+that depend on this corpus should therefore be read as time-bounded.
+Second, the capability coding behind Figure~\ref{fig:benchmark_heatmap} was
+performed by a single reviewer; we have released the per-benchmark
+notes as supplementary material to enable community validation, but we
+do not report formal inter-rater agreement. Third, the coverage
+analysis is biased toward English-language and Anglophone-dominated
+benchmarks, which under-represents code-switching, dialect, and
+non-Latin script regimes. Fourth, the deployment and safety syntheses
+draw heavily on system descriptions from authors of those systems,
+which limits adversarial scrutiny of reported latency and security
+measurements. Fifth, the proposed Evaluation Card and Deployment Card
+templates are not yet empirically validated against community use;
+they are framing tools for reviewer consensus, not measurement
+instruments. We acknowledge these limitations to preempt
+over-generalization of the lifecycle audit and to invite community
+extension of the supplementary material.
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+This survey reviewed Speech Large Language Models by connecting training,
+evaluation, deployment, and speech-specific risk analysis. Training
+advances such as Whisper-style weakly supervised pretraining, alignment
+modules including AlignFormer and Q-Former,
+parameter-efficient fine-tuning, and preference alignment via DPO and
+RLAIF have made Speech LLMs increasingly capable. Evaluation, however,
+remains a bottleneck: current benchmarks over-measure inherited ASR and
+emotion tasks while under-measuring latency, safety, code-switching, and
+privacy. Deployment research has begun to address streaming, edge, and
+full-duplex constraints, yet
+integrated systems combining serving, architecture, and algorithmic
+optimization remain rare. Safety, privacy, and governance work has shown
+that text-only safeguards do not transfer to speech: audio jailbreaks,
+voice cloning, deepfake misuse, and speaker re-identification require
+modality-specific responses. By treating Speech LLMs as systems rather
+than only models, the lifecycle perspective surfaces both the structural
+gaps and the cross-stage couplings that will shape the next generation
+of robust, efficient, and responsible spoken-language systems.

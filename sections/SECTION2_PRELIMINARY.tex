@@ -1,0 +1,40 @@
+\section{Background: Speech LLMs and Their Lifecycle Challenges}
+\label{sec:background}
+
+We assume reader familiarity with the Transformer-based language model
+backbone (e.g., \cite{vaswani2017attention,radford2019language,brown2020language})
+and standard supervised, instruction-tuned, and RLHF-aligned text LLM
+pipelines. This section sets up the speech-specific concepts the rest of
+the survey relies on.
+
+\paragraph{Speech LLMs.}
+We use \emph{Speech LLM} to refer to an LLM-based system that consumes,
+reasons over, or generates speech as part of language interaction. This
+includes speech-to-text recognition coupled with an LLM (cascaded),
+speech-to-text and speech-to-speech models that share a single backbone
+(end-to-end), and omni-modal models that integrate speech with text and
+other modalities \cite{cui2024recent,peng2025surveyspeechlargelanguage}.
+
+\paragraph{Why speech is different.}
+Three properties of speech shape every lifecycle stage of Speech LLMs.
+First, speech is a continuous, high-dimensional, multi-channel signal that
+carries linguistic content, paralinguistics, speaker identity, scene
+context, and timing simultaneously. Second, parallel speech-text data is
+expensive and unevenly distributed across languages and domains, so most
+training pipelines depend on weak supervision or self-supervision
+\cite{radford2023robust,hsu2021hubert}. Third, speech interaction is
+inherently real-time: a model that produces a correct transcript or
+response too late may fail the interaction even if its content is
+accurate. Together, these properties drive the design choices reviewed in
+the following sections.
+
+\paragraph{Lifecycle framing.}
+The remainder of the survey is organized around four lifecycle stages:
+training strategies (Section~\ref{sec:training_strategies}), evaluation
+and benchmarking (Section~\ref{sec:evaluation_benchmarking}), deployment
+and real-time interaction (Section~\ref{sec:deployment}), and safety,
+privacy, and governance (Section~\ref{sec:safety_privacy_governance}).
+The four stages are tightly coupled. Training choices determine what
+benchmarks reveal; benchmarks reveal what deployment must defend
+against; deployment constraints reshape which training and evaluation
+trade-offs are acceptable; and safety risks span all three.

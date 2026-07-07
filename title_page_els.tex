@@ -1,0 +1,64 @@
+%% Separate title page for Elsevier/IP&M submission. Do not include this in the anonymous manuscript PDF.
+\documentclass[a4paper,fleqn]{cas-sc}
+
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{hyperref}
+
+\begin{document}
+\let\WriteBookmarks\relax
+\def\floatpagepagefraction{1}
+\def\textpagefraction{.001}
+
+\shorttitle{Speech Large Language Models in the Real World}
+\shortauthors{Yang et~al.}
+
+\title[mode=title]{Speech Large Language Models in the Real World: A Survey of Training, Evaluation, Deployment, and Responsible Design}
+
+\author[1]{Shiqi Yang}\cormark[1]
+\ead{sy3506@nyu.edu}
+\credit{Conceptualization, Methodology, Investigation, Writing -- Original Draft, Writing -- Review \& Editing, Visualization}
+
+\author[2]{Ziyi Huang}
+\ead{zhwang099@gmail.com}
+\credit{Investigation, Writing -- Original Draft, Writing -- Review \& Editing}
+
+\author[3]{Wengran Xiao}
+\ead{wengranx@umich.edu}
+\credit{Investigation, Writing -- Original Draft, Writing -- Review \& Editing}
+
+\affiliation[1]{organization={New York University},
+                city={New York},
+                country={USA}}
+\affiliation[2]{organization={Independent Researcher},
+                city={Seattle},
+                country={USA}}
+\affiliation[3]{organization={University of Michigan},
+                city={New York},
+                country={USA}}
+
+\cortext[cor1]{Corresponding author.}
+
+\begin{abstract}
+Speech Large Language Models (Speech LLMs) extend text-based language models to spoken interaction, preserving linguistic content together with paralinguistic cues such as emotion, prosody, and speaker identity. Existing surveys describe how Speech LLMs are built; this survey instead asks what evidence and system conditions are required before Speech LLMs can be evaluated, deployed, and governed as real-world interactive systems. We adopt a \emph{lifecycle} framing connecting four stages---training, evaluation, deployment, and responsible design---and argue that progress in any one stage is constrained by choices in the others. The survey makes four contributions. First, we synthesize training strategies for modality alignment, weakly supervised pretraining, parameter-efficient fine-tuning, and preference alignment via RLHF, DPO, and RLAIF. Second, we conduct a meta-evaluation of recent Speech LLM benchmarks, analyzing construct, ecological, evaluator, and operational validity rather than only capability coverage. Third, we synthesize deployment research around real-time interaction constraints---streaming, serving, edge feasibility, and full-duplex behavior. Fourth, we develop a speech-specific responsible-design framework covering audio jailbreaks, voice cloning, speaker privacy, and provenance. By treating Speech LLMs as interactive systems rather than isolated models, the survey identifies the structural couplings that future research must address.
+\end{abstract}
+
+\begin{keywords}
+Speech large language models \sep Audio language models \sep Multimodal evaluation \sep Streaming inference \sep Responsible AI \sep Survey
+\end{keywords}
+
+\maketitle
+
+\section*{Acknowledgements}
+% TODO: Add acknowledgements here if applicable. Keep acknowledgements out of the anonymous manuscript.
+
+\section*{Funding}
+% TODO: Replace with actual funding information if applicable.
+This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors.
+
+\section*{Declaration of Competing Interest}
+% TODO: Verify with all authors before submission.
+The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
+
+\printcredits
+
+\end{document}

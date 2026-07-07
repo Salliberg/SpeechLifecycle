@@ -1,0 +1,90 @@
+\section{Future Directions}
+\label{sec:future_directions}
+
+Table~\ref{tab:survey_comparison} clarifies the contribution of this
+survey relative to prior work by comparing its scope with five recent
+reviews of Speech LLMs and audio-language models. 
+
+The remainder of this
+section adopts a lifecycle perspective to organize future directions
+around stage-specific challenges and cross-stage dependencies that shape
+practical Speech LLM systems.
+
+\begin{table*}[t]
+\caption{Coverage comparison: this survey versus five recent Speech LLM
+and audio-language reviews. \checkmark{} indicates substantive coverage;
+\textendash{} indicates limited or absent coverage. Shaded cells
+highlight coverage unique to this survey.}
+\label{tab:survey_comparison}
+\centering
+\footnotesize
+\begin{tabularx}{\textwidth}{|p{0.18\textwidth}|X|X|X|X|X|X|}
+\hline
+\textbf{Survey} & \textbf{Training} & \textbf{Meta-evaluation of benchmarks} &
+\textbf{Deployment / serving} & \textbf{Safety / privacy} &
+\textbf{Lifecycle coupling} & \textbf{Methodology type} \\
+\hline
+Cui et al.\ 2025 \cite{cui2024recent} &
+\checkmark{} & \textendash{} & \textendash{} & \textendash{} &
+\textendash{} & Narrative \\
+\hline
+Peng et al.\ 2025 \cite{peng2025surveyspeechlargelanguage} &
+\checkmark{} & Capability taxonomy only & \textendash{} &
+\textendash{} & \textendash{} & Narrative \\
+\hline
+Ji et al.\ (WavChat) \cite{ji2024wavchat} &
+Partial & \textendash{} & Dialogue / duplex only & \textendash{} &
+\textendash{} & Narrative \\
+\hline
+Latif et al.\ 2023 \cite{latif2023sparks} &
+\checkmark{} (speech foundation models) & \textendash{} &
+\textendash{} & \textendash{} & \textendash{} & Narrative \\
+\hline
+Ye et al.\ 2024 (LVLM safety) \cite{ye2024survey} &
+\textendash{} & \textendash{} & \textendash{} &
+\checkmark{} (vision-centric) & \textendash{} & Narrative \\
+\hline
+\textbf{This survey} &
+\checkmark{} & \cellcolor{gray!15}\checkmark{} (validity-aware) &
+\cellcolor{gray!15}\checkmark{} (interaction-oriented) &
+\cellcolor{gray!15}\checkmark{} (speech-specific) &
+\cellcolor{gray!15}\checkmark{} & Lifecycle audit \\
+\hline
+\end{tabularx}
+\end{table*}
+
+\paragraph{Training} Closing the data imbalance for low-resource
+languages and non-Latin scripts will require automated data generation,
+cross-lingual transfer, and quality-aware weakly supervised pipelines.
+Alignment modules need to preserve paralinguistic content while
+remaining streaming-friendly, and preference alignment needs reward
+signals that capture acoustic and prosodic quality, not only transcript
+fidelity.
+
+\paragraph{Evaluation} Benchmarks should adopt joint evaluation across
+content fidelity, paralinguistic awareness, interaction dynamics,
+latency, and safety; distribution-aware metrics for subjective targets;
+mandatory human baselines for new capability claims; and standardized
+Speech-LLM Evaluation Cards for cross-paper comparability
+(Section~\ref{sec:evaluation_benchmarking}).
+
+\paragraph{Deployment} Compositional optimization---combining
+quantization, speculative decoding, KV-cache reduction, and streaming
+serving in a single full-duplex stack---remains an open engineering
+problem. Reporting standards should include latency under simultaneous
+input and output, not only offline batch throughput
+(Section~\ref{sec:deployment}).
+
+\paragraph{Safety, privacy, and governance} Audio-specific red teaming,
+voice anonymization that resists adaptive purification, watermarking
+that survives realistic transformations, and modality-aware governance
+documentation are all immediate priorities
+(Section~\ref{sec:safety_privacy_governance}).
+
+\paragraph{Cross-stage coupling} The most impactful research questions
+sit between stages: training pipelines that anticipate streaming
+deployment, benchmarks that score safety and capability jointly, and
+governance frameworks that translate technical risk into deployable
+controls. A lifecycle perspective, rather than further specialization
+within a single stage, is likely to produce the largest gains for
+real-world Speech LLM systems.
