@@ -2,7 +2,7 @@
 \label{sec:background}
 
 We assume reader familiarity with the Transformer-based language model
-backbone (e.g., \cite{vaswani2017attention,radford2019language,brown2020language})
+backbone (e.g., \citep{vaswani2017attention,radford2019language,brown2020language})
 and standard supervised, instruction-tuned, and RLHF-aligned text LLM
 pipelines. This section sets up the speech-specific concepts the rest of
 the survey relies on.
@@ -13,7 +13,7 @@ reasons over, or generates speech as part of language interaction. This
 includes speech-to-text recognition coupled with an LLM (cascaded),
 speech-to-text and speech-to-speech models that share a single backbone
 (end-to-end), and omni-modal models that integrate speech with text and
-other modalities \cite{cui2024recent,peng2025surveyspeechlargelanguage}.
+other modalities \citep{cui2024recent,peng2025surveyspeechlargelanguage}.
 
 \paragraph{Why speech is different.}
 Three properties of speech shape every lifecycle stage of Speech LLMs.
@@ -22,7 +22,7 @@ carries linguistic content, paralinguistics, speaker identity, scene
 context, and timing simultaneously. Second, parallel speech-text data is
 expensive and unevenly distributed across languages and domains, so most
 training pipelines depend on weak supervision or self-supervision
-\cite{radford2023robust,hsu2021hubert}. Third, speech interaction is
+\citep{radford2023robust,hsu2021hubert}. Third, speech interaction is
 inherently real-time: a model that produces a correct transcript or
 response too late may fail the interaction even if its content is
 accurate. Together, these properties drive the design choices reviewed in

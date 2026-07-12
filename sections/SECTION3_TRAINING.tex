@@ -18,36 +18,36 @@ downstream implications for evaluation
 Speech and text differ in two ways that complicate joint modeling: speech
 sequences are typically much longer than their text counterparts, and
 speech embeddings live in a separate representation space from text
-embeddings \cite{fan2025alignformer,bai2024seed}. Modality alignment
+embeddings \citep{fan2025alignformer,bai2024seed}. Modality alignment
 modules and acoustic pretraining strategies address these mismatches.
 
 \paragraph{Alignment modules.}
 Modular Speech LLMs combine a pretrained speech encoder (e.g., Whisper
-\cite{radford2023robust}, HuBERT \cite{hsu2021hubert}, wav2vec~2.0
-\cite{baevski2020wav2vec}) with a partly frozen text LLM through a
-trainable bridge. \emph{AlignFormer} \cite{fan2025alignformer} pairs a
+\citep{radford2023robust}, HuBERT \citep{hsu2021hubert}, wav2vec~2.0
+\citep{baevski2020wav2vec}) with a partly frozen text LLM through a
+trainable bridge. \emph{AlignFormer} \citep{fan2025alignformer} pairs a
 Connectionist Temporal Classification (CTC) layer with a Q-Former-style
 attention module to map variable-length acoustic features to discrete
-text-aligned tokens. \emph{Seed-ASR Converter} \cite{bai2024seed} learns
+text-aligned tokens. \emph{Seed-ASR Converter} \citep{bai2024seed} learns
 a context-aware transformation that improves multilingual generalization.
-\emph{SALMONN}'s Q-Former \cite{tang2023salmonn} and the OSUM adapter
-\cite{geng2025osum} use a small set of trainable queries to distill
+\emph{SALMONN}'s Q-Former \citep{tang2023salmonn} and the OSUM adapter
+\citep{geng2025osum} use a small set of trainable queries to distill
 semantically rich acoustic representations into the LLM's input space.
 As an alternative to adapter-based bridging, X-OPD
-\cite{cao2026xopd} distills text-LLM capabilities into a speech-LLM via
+\citep{cao2026xopd} distills text-LLM capabilities into a speech-LLM via
 cross-modal on-policy rollouts, bypassing the need for paired
 speech-text supervision altogether. Empirical alignment quality can be
 probed via the Automatic Latent Alignment Score (ALAS)
-\cite{mousavi2025alas}, which uses Whisper timestamps as a reference and
+\citep{mousavi2025alas}, which uses Whisper timestamps as a reference and
 reports that deeper transformer layers align better for semantic tasks
 while earlier layers align better for paralinguistic tasks.
 
 \paragraph{Self-supervised pretraining.}
 Speech LLMs adapt the masked-prediction and clustering objectives from
 text SSL to raw audio. Representative methods include UniSpeech-SAT
-\cite{chen2022unispeech}, which adds speaker-aware objectives to the SSL
-loss; DinoSR \cite{liu2023dinosr}, which combines self-distillation with
-masked acoustic modeling; and Seed-ASR \cite{bai2024seed}, which scales a
+\citep{chen2022unispeech}, which adds speaker-aware objectives to the SSL
+loss; DinoSR \citep{liu2023dinosr}, which combines self-distillation with
+masked acoustic modeling; and Seed-ASR \citep{bai2024seed}, which scales a
 BERT-style masked-prediction pretraining to millions of hours of speech
 to produce the LUISE encoder, subsequently aligned to a language model.
 
@@ -55,13 +55,13 @@ to produce the LUISE encoder, subsequently aligned to a language model.
 Two further pretraining paradigms reduce reliance on parallel speech-text
 data. \emph{Cold-start joint modeling} initializes both speech and
 language components together, as in Generative Spoken Language Modeling
-(GSLM) \cite{lakhotia2021generative} and SPIRIT-LM \cite{nguyen2025spirit},
+(GSLM) \citep{lakhotia2021generative} and SPIRIT-LM \citep{nguyen2025spirit},
 yielding tighter cross-modal interactions than methods that freeze the
 language model. \emph{Weakly supervised pretraining at scale}, exemplified
-by Whisper \cite{radford2023robust}'s 680{,}000-hour multilingual corpus,
+by Whisper \citep{radford2023robust}'s 680{,}000-hour multilingual corpus,
 trades exact transcription quality for breadth and produces strong
 zero-shot transcription, translation, and detection capabilities. Many
-later systems (OSUM \cite{geng2025osum}, SALMONN \cite{tang2023salmonn})
+later systems (OSUM \citep{geng2025osum}, SALMONN \citep{tang2023salmonn})
 build directly on Whisper-style encoders, treating large-scale weak
 supervision as the de facto foundation.
 
@@ -74,18 +74,18 @@ behavior. Speech LLM fine-tuning takes three main forms.
 \paragraph{Instruction tuning.}
 Instruction tuning aligns Speech LLMs to user intent in spoken dialogue,
 question answering, and editing tasks. SpeechGPT
-\cite{zhang2023speechgptempoweringlargelanguage} integrates discrete
+\citep{zhang2023speechgptempoweringlargelanguage} integrates discrete
 speech tokens into a decoder-only LLM backbone with strong zero-shot
-generalization. COSMIC \cite{pan2024cosmicdataefficientinstructiontuning}
+generalization. COSMIC \citep{pan2024cosmicdataefficientinstructiontuning}
 trains a Q-Former bridge on 450 hours of speech plus GPT-3.5-generated
 QA pairs, achieving competitive ASR and speech-to-text translation with
-limited paired data. InstructSpeech \cite{huang2024instructspeech} uses
+limited paired data. InstructSpeech \citep{huang2024instructspeech} uses
 hierarchical adapters and multi-step reasoning for fine-grained semantic
 and acoustic editing. LLaMA-Omni
-\cite{fang2025llamaomniseamlessspeechinteraction} pairs a frozen Whisper
+\citep{fang2025llamaomniseamlessspeechinteraction} pairs a frozen Whisper
 encoder with LLaMA-3.1-8B-Instruct and a streaming decoder, reporting
 226\,ms response latency without intermediate transcription. More
-recently, Audio-FLAN \cite{xue2025audioflan} demonstrates that scaling
+recently, Audio-FLAN \citep{xue2025audioflan} demonstrates that scaling
 instruction data to over 100 million instances across 80 audio tasks
 yields substantial gains, signaling a shift toward
 massive-scale instruction tuning.
@@ -93,24 +93,24 @@ massive-scale instruction tuning.
 \paragraph{Parameter-efficient tuning.}
 Parameter-efficient fine-tuning (PEFT) updates a small fraction of model
 parameters while freezing the rest, reducing compute cost and mitigating
-catastrophic forgetting. HDMoLE \cite{mu2025hdmolemixtureloraexperts}
+catastrophic forgetting. HDMoLE \citep{mu2025hdmolemixtureloraexperts}
 combines hierarchical LoRA adapters with mixture-of-experts routing for
 joint accent and domain adaptation, updating $\sim$9.6\% of parameters
 while matching full fine-tuning. ELP-Adapters
-\cite{inoue2024elpadaptersparameterefficientadapter} insert lightweight
+\citep{inoue2024elpadaptersparameterefficientadapter} insert lightweight
 modules at multiple abstraction levels of pretrained encoders such as
 WavLM, enabling targeted adaptation with minimal parameter footprint.
-Zipper-LoRA \cite{mei2026zipperlora} further advances speech-specific
+Zipper-LoRA \citep{mei2026zipperlora} further advances speech-specific
 PEFT by introducing language-conditioned routing with rank-level
 decoupling for multilingual speech recognition.
 
 \paragraph{Domain-specific tuning.}
 Specialized domains (medical, financial, technical) often have
 constrained paired speech-text resources. Low-resource adaptation via
-unpaired domain-specific text \cite{fang2025lowresourcedomainadaptationspeech}
+unpaired domain-specific text \citep{fang2025lowresourcedomainadaptationspeech}
 fine-tunes the language decoder with LoRA while preserving alignment via
 real-time evaluation, reducing domain WER without harming general
-performance. Decoder-only context perturbation \cite{suh2024improving}
+performance. Decoder-only context perturbation \citep{suh2024improving}
 freezes the encoder and randomizes domain descriptions during decoder
 fine-tuning to mitigate overfitting and forgetting, with successful
 applications to earnings calls and medical dialogue.
@@ -122,10 +122,10 @@ Pretraining and fine-tuning equip Speech LLMs with capability; preference
 alignment shapes their behavior to match user expectations for
 helpfulness, safety, and naturalness. This is especially consequential in
 speech, where prosody, pacing, and emotion strongly influence perceived
-quality \cite{communication2023seamlessmultilingualexpressivestreaming}.
+quality \citep{communication2023seamlessmultilingualexpressivestreaming}.
 
 \paragraph{Reinforcement Learning from Human Feedback (RLHF).}
-RLHF \cite{ouyang2022training,christiano2017deep} trains a reward model
+RLHF \citep{ouyang2022training,christiano2017deep} trains a reward model
 on human-labeled preference pairs and then optimizes the base model
 against it. The reward model uses a pairwise ranking loss that converts
 human comparisons into a scalar reward:
@@ -134,15 +134,15 @@ human comparisons into a scalar reward:
 \end{equation}
 where $x$ is the prompt, $y_1$ is preferred over $y_2$, and $r_\phi$
 scores responses. The base model is then optimized via policy-gradient
-methods (typically PPO \cite{schulman2017proximalpolicyoptimizationalgorithms}
+methods (typically PPO \citep{schulman2017proximalpolicyoptimizationalgorithms}
 in text settings) with a KL constraint to a reference model. RLHF is
 expensive in human annotation and unstable to tune, particularly in
 speech, where preference data must capture acoustic and paralinguistic
 quality in addition to content. As a result, Speech LLMs typically
-substitute RLHF with lighter alternatives \cite{rafailov2023direct}.
+substitute RLHF with lighter alternatives \citep{rafailov2023direct}.
 
 \paragraph{Direct Preference Optimization (DPO).}
-DPO \cite{rafailov2023direct} eliminates the explicit reward model by
+DPO \citep{rafailov2023direct} eliminates the explicit reward model by
 expressing the preference loss directly in terms of the policy:
 \begin{equation}
 \mathcal{L}_{\mathrm{DPO}}(\theta)
@@ -160,31 +160,31 @@ expressing the preference loss directly in terms of the policy:
 
 DPO matches or exceeds RLHF on text alignment tasks while using a single
 training stage. Speech LLMs have rapidly adopted it. SpeechAlign
-\cite{zhang2024speechalignaligningspeechgeneration} iteratively refines a
+\citep{zhang2024speechalignaligningspeechgeneration} iteratively refines a
 zero-shot TTS model on LibriSpeech and VCTK, surpassing RLHF-PPO on Word
 Error Rate, Speaker Similarity, and human ratings. Align-SLM
-\cite{lin2025alignslmtextlessspokenlanguage} extends DPO to a textless
+\citep{lin2025alignslmtextlessspokenlanguage} extends DPO to a textless
 spoken language model trained on LibriSpeech and Multilingual LibriSpeech,
 outperforming Moshi and SPIRIT-LM on the spoken StoryCloze benchmark.
-OpenOmni \cite{luo2025openomniadvancingopensourceomnimodal} introduces a
+OpenOmni \citep{luo2025openomniadvancingopensourceomnimodal} introduces a
 Connectionist Temporal Classification variant of DPO (CTC-DPO) for
 emotionally coherent speech generation, reporting strong results on the
 EO2S-9k bilingual emotional speech benchmark. Beyond pairwise
-comparisons, Emo-LiPO \cite{lin2026emolipo} proposes listwise preference
+comparisons, Emo-LiPO \citep{lin2026emolipo} proposes listwise preference
 optimization for speech emotion intensity, suggesting that richer
 ranking signals can further improve alignment quality.
 
 \paragraph{Reinforcement Learning from AI Feedback (RLAIF).}
-RLAIF \cite{lee2024rlaifvsrlhfscaling,bai2022constitutionalaiharmlessnessai}
+RLAIF \citep{lee2024rlaifvsrlhfscaling,bai2022constitutionalaiharmlessnessai}
 replaces human preference annotation with AI-generated labels, trading a
 small accuracy cost for substantially improved scalability. Lee et al.\
 show that direct RLAIF (d-RLAIF) prompts an AI labeler at training time
 and matches or exceeds RLHF on summarization and dialogue. RLAIF-V
-\cite{yu2024rlaifvopensourceaifeedback} extends this to multimodal models
+\citep{yu2024rlaifvopensourceaifeedback} extends this to multimodal models
 with deconfounded generation and atomic claim decomposition; the 12B
 variant reduces its overall hallucination rate by 32.4\% through
 self-alignment, surpassing GPT-4V in trustworthiness. In speech,
-AlignSLM \cite{lin2025alignslmtextlessspokenlanguage} uses semantic
+AlignSLM \citep{lin2025alignslmtextlessspokenlanguage} uses semantic
 metrics on AI-generated speech continuations to construct preference data
 for DPO, achieving state-of-the-art results on spoken StoryCloze.
 
@@ -203,22 +203,22 @@ Section~\ref{sec:evaluation_benchmarking}.}
 \label{tab:alignment_comparison}
 \centering
 \scriptsize
-\begin{tabularx}{\linewidth}{|l|X|X|X|X|}
-\hline
+\begin{tabularx}{\linewidth}{lXXXX}
+\toprule
 \textbf{Aspect} & \textbf{RLHF} & \textbf{DPO} & \textbf{RLAIF} & \textbf{Speech-evaluation hook} \\
-\hline
-\textbf{Annotation source} & Human preference pairs & Human preference pairs; some implementations mix synthetic data & AI-generated preference pairs & Speech requires acoustic + paralinguistic judgements; LLM judges are still moderate-correlation \cite{zheng2023judging} \\
-\hline
+\midrule
+\textbf{Annotation source} & Human preference pairs & Human preference pairs; some implementations mix synthetic data & AI-generated preference pairs & Speech requires acoustic + paralinguistic judgements; LLM judges are still moderate-correlation \citep{zheng2023judging} \\
+\midrule
 \textbf{Optimization} & Policy gradient (e.g., PPO) & Direct preference loss & Reward learning or DPO-style & Construct/evaluator validity (Section~\ref{sec:evaluation_benchmarking}) determines which optimization signal is reliable \\
-\hline
+\midrule
 \textbf{Reward model} & Required & Not required & Required (or implicit) & A reward trained on transcripts misses acoustic quality; speech reward models remain underdeveloped \\
-\hline
+\midrule
 \textbf{Engineering overhead} & High (multi-stage pipeline) & Moderate (single-stage) & Moderate (auto-labeling pipeline) & Operational validity hooks: alignment cost shapes deployment cycle (Section~\ref{sec:deployment}) \\
-\hline
+\midrule
 \textbf{Speech adoption} & Limited (manual effort, slow iteration) & Promising: SpeechAlign, Align-SLM, OpenOmni & Emerging: RLAIF-V, AlignSLM & Adoption tracks the availability of speech-aware judges and benchmarks \\
-\hline
+\midrule
 \textbf{Scalability} & Limited by annotation cost & Improved efficiency & High (AI-supervised) & Scaling depends on whether evaluation can detect over-optimization (Section~\ref{sec:evaluation_benchmarking}) \\
-\hline
+\bottomrule
 \end{tabularx}
 \end{table*}
 
@@ -230,14 +230,14 @@ the lifecycle and motivate later sections.
 
 \emph{Data sufficiency.} Self-supervised and weakly supervised
 pretraining on tens to hundreds of thousands of hours has become the
-default \cite{radford2023robust,bai2024seed}, but parallel speech-text
+default \citep{radford2023robust,bai2024seed}, but parallel speech-text
 data remains scarce for low-resource languages, scripts, and domains.
 This data imbalance reappears in evaluation: most multilingual
 benchmarks under-sample non-Latin scripts (Section~\ref{sec:evaluation_benchmarking}).
 
 \emph{Alignment quality.} Whether alignment modules preserve
 paralinguistic content varies substantially across architectures
-\cite{mousavi2025alas,fan2025alignformer}. Benchmarks such as SALMon and
+\citep{mousavi2025alas,fan2025alignformer}. Benchmarks such as SALMon and
 FMSU-Bench show that semantically capable Speech LLMs frequently fail at
 acoustic-semantic binding (Section~\ref{sec:evaluation_benchmarking}),
 which suggests that alignment quality, not language modeling, is often

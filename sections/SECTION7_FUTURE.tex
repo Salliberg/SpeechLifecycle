@@ -13,43 +13,44 @@ practical Speech LLM systems.
 \begin{table*}[t]
 \caption{Coverage comparison: this survey versus five recent Speech LLM
 and audio-language reviews. \checkmark{} indicates substantive coverage;
-\textendash{} indicates limited or absent coverage. Shaded cells
-highlight coverage unique to this survey.}
+\textendash{} indicates limited or absent coverage. In the last row,
+qualifiers in italics identify dimensions where this survey adds
+coverage not present in the earlier reviews.}
 \label{tab:survey_comparison}
 \centering
 \footnotesize
-\begin{tabularx}{\textwidth}{|p{0.18\textwidth}|X|X|X|X|X|X|}
-\hline
+\begin{tabularx}{\textwidth}{p{0.18\textwidth}XXXXXX}
+\toprule
 \textbf{Survey} & \textbf{Training} & \textbf{Meta-evaluation of benchmarks} &
 \textbf{Deployment / serving} & \textbf{Safety / privacy} &
 \textbf{Lifecycle coupling} & \textbf{Methodology type} \\
-\hline
-Cui et al.\ 2025 \cite{cui2024recent} &
+\midrule
+Cui et al.\ 2025 \citep{cui2024recent} &
 \checkmark{} & \textendash{} & \textendash{} & \textendash{} &
 \textendash{} & Narrative \\
-\hline
-Peng et al.\ 2025 \cite{peng2025surveyspeechlargelanguage} &
+\midrule
+Peng et al.\ 2025 \citep{peng2025surveyspeechlargelanguage} &
 \checkmark{} & Capability taxonomy only & \textendash{} &
 \textendash{} & \textendash{} & Narrative \\
-\hline
-Ji et al.\ (WavChat) \cite{ji2024wavchat} &
+\midrule
+Ji et al.\ (WavChat) \citep{ji2024wavchat} &
 Partial & \textendash{} & Dialogue / duplex only & \textendash{} &
 \textendash{} & Narrative \\
-\hline
-Latif et al.\ 2023 \cite{latif2023sparks} &
+\midrule
+Latif et al.\ 2023 \citep{latif2023sparks} &
 \checkmark{} (speech foundation models) & \textendash{} &
 \textendash{} & \textendash{} & \textendash{} & Narrative \\
-\hline
-Ye et al.\ 2024 (LVLM safety) \cite{ye2024survey} &
+\midrule
+Ye et al.\ 2024 (LVLM safety) \citep{ye2024survey} &
 \textendash{} & \textendash{} & \textendash{} &
 \checkmark{} (vision-centric) & \textendash{} & Narrative \\
-\hline
+\midrule
 \textbf{This survey} &
-\checkmark{} & \cellcolor{gray!15}\checkmark{} (validity-aware) &
-\cellcolor{gray!15}\checkmark{} (interaction-oriented) &
-\cellcolor{gray!15}\checkmark{} (speech-specific) &
-\cellcolor{gray!15}\checkmark{} & Lifecycle audit \\
-\hline
+\checkmark{} & \checkmark{} \emph{(validity-aware)} &
+\checkmark{} \emph{(interaction-oriented)} &
+\checkmark{} \emph{(speech-specific)} &
+\checkmark{} \emph{(cross-stage)} & Lifecycle audit \\
+\bottomrule
 \end{tabularx}
 \end{table*}
 

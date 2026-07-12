@@ -1,0 +1,152 @@
+\section{Discussion: Theoretical and Practical Implications}
+\label{sec:discussion}
+
+Having presented the four lifecycle audits, we step back and discuss
+what the survey adds relative to existing work, what it means for
+theory of evaluation in language technology, and what practitioners
+can immediately do with it. The discussion is deliberately limited to
+the survey's own scope; we do not extrapolate to voice-interaction
+design guidance beyond the evaluation, deployment, and governance
+questions that the audit addresses.
+
+\subsection{How This Survey Differs From Prior Work}
+\label{subsec:discussion_differentiation}
+
+Five recent reviews cover overlapping territory: two Speech-LLM
+surveys \citep{cui2024recent,peng2025surveyspeechlargelanguage}, a
+dialogue-oriented review \citep{ji2024wavchat}, an earlier speech
+foundation-model review \citep{latif2023sparks}, and a
+vision-centric large-multimodal-model safety survey
+\citep{ye2024survey}. Table~\ref{tab:survey_comparison} summarizes the
+comparison. All five treat their topic mainly as construction:
+which architectures exist, which training recipes work, which models
+achieve which benchmark scores. The present survey inverts that
+question. It asks under which conditions the resulting systems can be
+trusted, and it forces every section to be read through that lens.
+Concretely, the value added by this survey is threefold.
+
+First, the meta-evaluation of Section~\ref{sec:evaluation_benchmarking}
+audits 18 benchmarks along four validity axes rather than compiling a
+capability catalog. To our knowledge no prior Speech-LLM survey does
+this, and the resulting evidence---17 capability dimensions,
+$18\times 17$ coverage matrix, four documented validity gaps---is
+released as supplementary material so that future benchmark designers
+can build on it or contest it.
+
+Second, the deployment synthesis of Section~\ref{sec:deployment}
+organizes serving, architecture, streaming, efficiency, and full-duplex
+research around five recurring failure modes (latency fragmentation,
+streaming mismatch, memory growth, hardware mismatch, interaction
+incompleteness). The prior WavChat review \citep{ji2024wavchat} covers
+dialogue and duplex behavior in isolation; here they are linked to the
+evaluation gaps in Section~\ref{sec:evaluation_benchmarking} and to the
+safety surface in Section~\ref{sec:safety_privacy_governance}.
+
+Third, the responsible-design treatment of
+Section~\ref{sec:safety_privacy_governance} develops a threat model
+that is specific to speech---audio jailbreaks, cloning-based
+impersonation, speaker re-identification, and provenance under
+transformation---rather than inheriting the vision-centric taxonomy of
+prior LVLM safety surveys \citep{ye2024survey}. Watermark robustness in
+particular is reframed as a robustness-under-transformation problem
+rather than a detection problem, following the SoK conclusion that no
+surveyed audio watermarking scheme is robust to all tested distortions
+\citep{wen2025sokrobustaudiowatermarking}.
+
+Cutting across all three, the coupling evidence of
+Table~\ref{tab:coupling_evidence} makes the lifecycle framing testable
+rather than rhetorical: each coupling names an upstream decision, a
+downstream stage, and a documented consequence.
+
+\subsection{Theoretical Implications for Language-Technology Evaluation}
+\label{subsec:discussion_theoretical}
+
+The main theoretical contribution is to bring \emph{measurement
+validity} back into the discussion of Speech-LLM benchmarks. Classical
+psychometrics distinguishes construct, ecological, evaluator, and
+operational validity as separate threats; language-technology
+evaluation has largely collapsed these into a single question of
+``does the model reach the state of the art on the benchmark?''. The
+audit in Section~\ref{sec:evaluation_benchmarking} shows that this
+collapse hides three systematic risks. Construct validity is
+threatened by hard-label scoring of intrinsically distributional
+targets such as emotion and style. Evaluator validity is threatened
+when proprietary judges score the same model family that helped
+curate the benchmark, and by only moderate reported human--judge
+correlations (Spearman $\rho \approx 0.61$ for SD-Eval; Pearson $\approx
+0.8$ for SeaLLMs-Audio). Operational validity is threatened when
+latency, streaming state, and hardware are omitted from evaluation
+reports even though these determine whether a system is usable in
+production.
+
+Bringing these threats back to the surface has two follow-on
+implications. Benchmarks and surveys should treat validity as a
+first-class object, not as an afterthought in the discussion section.
+And, for benchmarks used to select or promote systems, the coupling
+between validity and downstream use---who scored what, under which
+conditions, and with what latency budget---should be reported
+alongside the numerical scores. The five design principles at the end
+of Section~\ref{sec:evaluation_benchmarking} operationalize these
+implications for future benchmark releases.
+
+\subsection{Practical Implications for Practitioners}
+\label{subsec:discussion_practical}
+
+For information-processing researchers and practitioners choosing or
+building Speech-LLM systems, the audit yields four concrete pieces of
+guidance.
+
+First, benchmark scores alone are insufficient for system selection.
+Because the Use-case$\times$Capability cell of
+Table~\ref{tab:benchmark_taxonomy} is empty, a practitioner who needs,
+for example, an emotion-aware multilingual voice agent cannot rank
+candidate models on published leaderboards. The recommended path is
+to pair a use-case-grounded benchmark (VoiceBench, VoiceAgentBench,
+Audio2Tool, SLUE-PERB) with at least one capability-focused benchmark
+covering the paralinguistic or robustness dimension that matters for
+the target deployment.
+
+Second, deployment claims should be reported jointly with latency,
+streaming policy, and hardware. Section~\ref{sec:deployment} proposes
+a Deployment Card checklist covering model size, hardware class,
+batch size, streaming policy, input and output duration, active
+optimizations, and the interaction regime under which the numbers
+were measured. This card is not a new instrument to be built from
+scratch; it is a minimum reporting standard that lets readers compare
+across papers without re-running each system.
+
+Third, safety evaluation should be treated as multimodal and adaptive.
+Section~\ref{sec:safety_privacy_governance} shows that text-only
+alignment does not transfer to spoken inputs, that adversarial
+waveform perturbations can bypass transcript-level filters, and that
+adaptive purification attacks (VocalBridge
+\citep{abbasihafshejani2026vocalbridgelatentdiffusionbridgepurification})
+can undo perturbation-based privacy defenses. Deployed voice systems
+therefore need layered defenses at the input, representation,
+transcription, output, and operational levels, and safety benchmarks
+should include perturbed and multimodal audio-text attacks alongside
+clean prompts.
+
+Fourth, governance documentation should be modality-aware. General
+Model Cards \citep{mitchell2019modelcards} and AI Cards
+\citep{golpayegani2024aicardsappliedframework} provide useful templates
+but do not by themselves cover speech-specific risks. The governance
+requirements listed in Section~\ref{sec:safety_privacy_governance}
+name five components---data, safety, privacy, provenance, and
+operational governance---that a modality-aware speech-system
+description should document.
+
+\subsection{Scope of the Discussion}
+\label{subsec:discussion_scope}
+
+We deliberately keep the implications narrow. The survey does not
+propose a new user-facing design methodology for voice interfaces,
+does not measure real-world user preferences, and does not audit
+commercial deployment reports beyond what appears in the peer-reviewed
+and preprint literature covered above. The reader should treat the
+Deployment Card, Evaluation Card, and governance-requirements list as
+reviewer-facing framing tools rather than validated measurement
+instruments; the empirical validation of these templates against
+community use is left to future work
+(Section~\ref{sec:future_directions}) and discussed as a limitation in
+Section~\ref{sec:limitations}.

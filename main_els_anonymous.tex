@@ -3,7 +3,10 @@
 
 \documentclass[a4paper,fleqn]{cas-sc}
 
-\usepackage[numbers,sort&compress]{natbib}
+%% APA-style author-year citations (Information Processing & Management uses APA).
+%% If the CAS class rejects natbib author-year for some reason, fall back to
+%% \usepackage[numbers,sort&compress]{natbib} and \bibliographystyle{cas-model2-names}.
+\usepackage[authoryear,round]{natbib}
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{xcolor}
 \usepackage{textcomp}
@@ -20,11 +23,8 @@
 \usepackage{pifont}
 \usepackage{url}
 \usepackage{hyperref}
-\usepackage{booktabs}
-\usepackage{tabularx}
 \usepackage{threeparttable}
 \usepackage{ragged2e}
-\usepackage{array}
 
 \newcolumntype{Y}{>{\RaggedRight\arraybackslash}X}
 \newcommand{\na}{\textemdash}
@@ -38,7 +38,6 @@
 
 \newcommand{\cmark}{\checkmark}
 \newcommand{\xmark}{\ding{55}}
-\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
 
 \begin{document}
 \let\WriteBookmarks\relax
@@ -58,36 +57,37 @@
 %                 country={Anonymous Country}}
 \author{Anonymous Author(s)}
 \begin{abstract}
-Speech Large Language Models (Speech LLMs) extend text-based language
-models to spoken interaction, preserving linguistic content together
-with paralinguistic cues such as emotion, prosody, and speaker identity.
-Existing surveys describe how Speech LLMs are built; this survey instead
-asks what evidence and system conditions are required before Speech LLMs
-can be evaluated, deployed, and governed as real-world interactive
-systems. We adopt a \emph{lifecycle} framing connecting four
-stages---training, evaluation, deployment, and responsible design---and
-argue that progress in any one stage is constrained by choices in the
-others. The survey makes four contributions. First, we synthesize
-training strategies for modality alignment, weakly supervised
-pretraining, parameter-efficient fine-tuning, and preference alignment
-via RLHF, DPO, and RLAIF. Second, we conduct a meta-evaluation of recent
-Speech LLM benchmarks, analyzing construct, ecological, evaluator, and
-operational validity rather than only capability coverage. Third, we
-synthesize deployment research around real-time interaction
-constraints---streaming, serving, edge feasibility, and full-duplex
-behavior. Fourth, we develop a speech-specific responsible-design
-framework covering audio jailbreaks, voice cloning, speaker privacy,
-and provenance. By treating Speech LLMs as interactive systems rather
-than isolated models, the survey identifies the structural couplings
-that future research must address.
+Speech Large Language Models (Speech LLMs) are moving from benchmarks
+into voice assistants and full-duplex systems, but existing surveys
+describe how they are built, not whether they can be trusted in
+deployment. We audit the field through a lifecycle lens spanning
+training, evaluation, deployment, and responsible design. Our corpus
+comprises 18 Speech LLM benchmarks published in 2024--2026 (3
+peer-reviewed, 15 arXiv preprints), coded across 17 capability
+dimensions into an 18$\times$17 coverage matrix. Four findings anchor
+the analysis. First, benchmark coverage is skewed: ASR, spoken question
+answering, and emotion each appear in 12/18, while safety appears in
+4/18, tool use in 2/18, latency in 1/18, and privacy in 0/18. Second, a
+scope--lens taxonomy reveals an empty Use-case$\times$Capability cell,
+so practitioners cannot select a Speech LLM for a realistic job while
+preserving a specific capability from published scores. Third, a
+reverse audit shows six interaction-first systems (Moshi, GPT-4o-Audio,
+MiniCPM-o~4.5, Voila, OmniFlatten, Gemini~Live) each appear in at most
+one benchmark, exposing a mismatch between deployed capability and
+public record. Fourth, five documented cross-stage couplings show
+training, evaluation, deployment, and safety are not independent. From
+these findings we propose five benchmark design principles, Deployment
+and Evaluation Card templates, and a governance framework covering
+audio jailbreaks, voice cloning, speaker re-identification, and
+provenance under transformation.
 \end{abstract}
 
 \begin{highlights}
-\item Frames Speech LLMs as coupled real-world systems spanning training, evaluation, deployment, and responsible design.
-\item Synthesizes training strategies for speech--text alignment, weak supervision, adaptation, and preference alignment.
-\item Meta-evaluates recent Speech LLM benchmarks through construct, ecological, evaluator, and operational validity.
-\item Reviews deployment constraints including streaming inference, serving, edge feasibility, efficiency, and full-duplex interaction.
-\item Develops a speech-specific safety and governance framework for audio jailbreaks, voice cloning, privacy, and provenance.
+\item Audit of 18 Speech LLM benchmarks (2024--2026) shows privacy 0/18, latency 1/18, safety 4/18.
+\item Two-axis taxonomy exposes an empty Use-case$\times$Capability cell.
+\item Six interaction-first systems appear in $\leq$1 benchmark each, a temporal record gap.
+\item Five documented training--evaluation--deployment--safety couplings drive the recommendations.
+\item Deployment and Evaluation Card templates enable joint reporting of accuracy, latency, and safety.
 \end{highlights}
 
 \begin{keywords}
@@ -103,17 +103,19 @@ Speech large language models \sep Audio language models \sep Multimodal evaluati
 \input{sections/SECTION5_DEPLOYMENT}
 \input{sections/SECTION6_SAFETY}
 \input{sections/SECTION7_FUTURE}
+\input{sections/SECTION9_DISCUSSION}
 \input{sections/SECTION8_CONCLUSION}
 
-%% Keep only if it does not reveal author identity. Edit this statement before final submission.
+%% IPM Guide for Authors: this declaration is required immediately before
+%% the references list. Wording follows the template in the IPM guide.
 \FloatBarrier
-\section*{Declaration of Generative AI and AI-Assisted Technologies}
-During the preparation of this work, the authors used generative AI tools to assist with language polishing, structural revision, and checklist-based editing. The authors reviewed, verified, and edited all content as needed and take full responsibility for the content of the submitted manuscript.
+\section*{Declaration of generative AI and AI-assisted technologies in the manuscript preparation process}
+During the preparation of this work, the authors used generative AI tools (large language models) to support language polishing, structural revision, and checklist-based editing of drafts. After using these tools the authors reviewed and edited the content as needed and take full responsibility for the content of the published article.
 
 \section*{Data Availability}
 The benchmark coding matrix and supplementary reading notes supporting this survey are provided as supplementary material.
 
-\bibliographystyle{cas-model2-names}
+\bibliographystyle{elsarticle-harv}
 \bibliography{references}
 
 \end{document}
