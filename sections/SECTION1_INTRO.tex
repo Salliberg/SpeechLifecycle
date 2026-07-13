@@ -50,6 +50,15 @@ This positioning distinguishes our work from prior Speech LLM surveys
 audio-language reviews, which catalog how models are built but do not
 audit the conditions under which they can be trusted in deployment.
 
+\paragraph{Relevance to information processing and management.}
+This framing is directly relevant to information processing and
+management because Speech LLMs are increasingly used as interfaces for
+information access, retrieval, synthesis, and decision support. In
+such settings, the central question is not only whether a model
+recognizes speech, but whether spoken information can be processed,
+retrieved, evaluated, and acted on under valid, timely, and governable
+conditions.
+
 \paragraph{Contributions.}
 This survey makes four contributions.
 \begin{enumerate}
@@ -74,32 +83,24 @@ This survey makes four contributions.
     cloning, speaker re-identification, and provenance watermarking.
 \end{enumerate}
 
-\paragraph{Objectives and guiding questions.}
-Concretely, we set out to answer four questions, one per lifecycle
-stage, plus a cross-cutting one. On training, we ask which strategies
-the field is actually using---from modality alignment and weakly
-supervised pretraining to preference alignment via RLHF, DPO, and
-RLAIF---and, more importantly, which of these choices quietly limit
-what evaluation, deployment, or safety can later reveal. On
-evaluation, we ask whether the current wave of Speech LLM benchmarks
-measures what a practitioner needs before trusting a system in
-production; the answer, developed in
-Section~\ref{sec:evaluation_benchmarking}, rests on an 18-benchmark
-audit across 17 capability dimensions and four validity types. On
-deployment, we ask which failure modes---latency fragmentation,
-streaming mismatch, memory growth, hardware mismatch, and interaction
-incompleteness---current serving stacks and architectures actually
-solve, and what reporting is required for practitioners to compare
-them. On responsible design, we ask which risks are genuinely
-speech-specific rather than inherited from text safeguards, and how
-well existing defenses cover them. The cross-cutting question that
-motivates the survey format is simpler to state and harder to answer:
-how do choices made at one stage propagate into the others?
-Table~\ref{tab:coupling_evidence} answers it with five documented
-examples, and each section closes with a short recap that ties its
-findings back to the same table. The survey is an audit rather than a
-construction: we do not propose a new model or benchmark, but we do
-argue that Speech LLMs cannot be reviewed one stage at a time.
+\subsection{Research Objectives and Guiding Questions}
+\label{sec:research_objectives}
+Concretely, this survey sets out to answer five research questions: four
+aligned with the lifecycle stages---training, evaluation, deployment, and
+responsible design---and one cross-cutting question on how the stages couple.
+Table~\ref{tab:coupling_evidence} documents that coupling with seven concrete
+examples, and each section closes with a short recap that ties its findings
+back to the same table.
+\begin{itemize}
+  \item \textbf{RQ1 (Training).} Which training strategies are the community actually using, and how do those choices constrain what evaluation, deployment, or safety can later reveal?
+  \item \textbf{RQ2 (Evaluation).} What do current Speech LLM benchmarks measure, and what remains invisible to them?
+  \item \textbf{RQ3 (Deployment).} Which runtime failure modes---latency fragmentation, streaming mismatch, memory growth, hardware mismatch, and interaction incompleteness---do current serving stacks and architectures actually address?
+  \item \textbf{RQ4 (Responsible design).} Which risks are genuinely speech-specific rather than inherited from text safeguards, and how well do existing defenses cover them?
+  \item \textbf{RQ5 (Lifecycle coupling).} How do decisions at one stage propagate into evaluation blind spots, deployment failures, and safety risks at the others?
+\end{itemize}
+The survey is an audit rather than a construction: we do not propose a new
+model or benchmark, but we do argue that Speech LLMs cannot be reviewed one
+stage at a time.
 
 \paragraph{Reading guide.}
 
@@ -245,7 +246,7 @@ feed back through re-training.}
 \end{figure}
 
 To make the cross-stage couplings concrete, Table~\ref{tab:coupling_evidence}
-records five examples where a training, evaluation, or deployment choice
+records seven examples where a training, evaluation, or deployment choice
 documented in the literature produced a visible consequence in a
 downstream stage.
 
@@ -297,6 +298,23 @@ Safety &
 Downstream safety classifiers and watermark detectors can degrade
 under aggressive compression
 (Section~\ref{sec:safety_privacy_governance}). \\
+\midrule
+Training &
+Text-only safety alignment of the LLM backbone without audio-side
+retraining \citep{yang2024audioachillesheelred}. &
+Safety &
+Adversarial audio jailbreaks bypass alignment; text-aligned refusal
+boundaries do not transfer to speech representations
+(Section~\ref{sec:safety_privacy_governance}). \\
+\midrule
+Deployment &
+Streaming inference with speculative decoding and KV-cache eviction
+under real-time time-to-first-byte budgets
+\citep{kamahori2026voxserve,wei2025specasr}. &
+Evaluation &
+Static offline benchmark scores fail to reveal streaming-mode accuracy
+drop; reported throughput varies by an order of magnitude in conditions
+no current benchmark captures (Section~\ref{subsec:eval_coverage}). \\
 \bottomrule
 \end{tabularx}
 \end{table*}

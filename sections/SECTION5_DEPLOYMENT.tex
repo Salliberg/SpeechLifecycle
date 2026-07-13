@@ -25,6 +25,8 @@ Table~\ref{tab:deployment-framework} turns this structure into a reporting check
 
 \begin{table*}[t]
 \centering
+\caption{A deployment analysis framework for Speech LLMs. Each failure mode induces a system pressure, points to relevant design patterns, and implies concrete criteria for deployment-card reporting.}
+\label{tab:deployment-framework}
 \footnotesize
 \setlength{\tabcolsep}{3pt}
 \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.17\textwidth} >{\raggedright\arraybackslash}p{0.24\textwidth} >{\raggedright\arraybackslash}p{0.22\textwidth} X}
@@ -38,8 +40,6 @@ Hardware mismatch & FLOPs and parameter count do not determine device-level beha
 Interaction incompleteness & Recognition or generation latency alone does not capture simultaneous listening and speaking & Full-duplex convergence; serving system & Evaluate simultaneous input/output, turn-taking, barge-in, interruption recovery latency, and response quality together. \\
 \bottomrule
 \end{tabularx}
-\caption{A deployment analysis framework for Speech LLMs. Each failure mode induces a system pressure, points to relevant design patterns, and implies concrete criteria for deployment-card reporting.}
-\label{tab:deployment-framework}
 \end{table*}
 
 The corresponding subsections discuss the quantitative signals reported by these systems. We do not aggregate them into a leaderboard because the systems differ in task, hardware, latency definition, and interaction setting.

@@ -26,6 +26,12 @@
 \usepackage{threeparttable}
 \usepackage{ragged2e}
 
+%% Typography: cas-sc.cls already loads \usepackage[T1]{fontenc} (line 144) and
+%% the STIX/Charis text fonts, so we do NOT re-load fontenc, and we deliberately
+%% skip lmodern (it would override the class-provided STIX/Charis faces).
+\usepackage{microtype}        % font expansion + kerning to fix bad line breaks
+\emergencystretch=2em         % last-resort stretch before overfull hboxes
+
 \newcolumntype{Y}{>{\RaggedRight\arraybackslash}X}
 \newcommand{\na}{\textemdash}
 
@@ -57,42 +63,46 @@
 %                 country={Anonymous Country}}
 \author{Anonymous Author(s)}
 \begin{abstract}
-Speech Large Language Models (Speech LLMs) are moving from benchmarks
-into voice assistants and full-duplex systems, but existing surveys
-describe how they are built, not whether they can be trusted in
-deployment. We audit the field through a lifecycle lens spanning
-training, evaluation, deployment, and responsible design. Our corpus
-comprises 18 Speech LLM benchmarks published in 2024--2026 (3
-peer-reviewed, 15 arXiv preprints), coded across 17 capability
-dimensions into an 18$\times$17 coverage matrix. Four findings anchor
-the analysis. First, benchmark coverage is skewed: ASR, spoken question
-answering, and emotion each appear in 12/18, while safety appears in
-4/18, tool use in 2/18, latency in 1/18, and privacy in 0/18. Second, a
-scope--lens taxonomy reveals an empty Use-case$\times$Capability cell,
-so practitioners cannot select a Speech LLM for a realistic job while
-preserving a specific capability from published scores. Third, a
-reverse audit shows six interaction-first systems (Moshi, GPT-4o-Audio,
-MiniCPM-o~4.5, Voila, OmniFlatten, Gemini~Live) each appear in at most
-one benchmark, exposing a mismatch between deployed capability and
-public record. Fourth, five documented cross-stage couplings show
-training, evaluation, deployment, and safety are not independent. From
-these findings we propose five benchmark design principles, Deployment
-and Evaluation Card templates, and a governance framework covering
-audio jailbreaks, voice cloning, speaker re-identification, and
-provenance under transformation.
+Speech Large Language Models (Speech LLMs) are moving into real-time
+voice assistants and full-duplex systems, yet existing surveys mainly
+explain how these models are built rather than whether they can be
+evaluated, deployed, and governed in real-world settings. We audit the
+field through a lifecycle lens spanning training, evaluation,
+deployment, and responsible design. Our corpus includes 18 Speech LLM
+benchmarks released between 2024 and June 2026 (3 peer-reviewed, 15
+arXiv preprints), coded across 17 capability dimensions and four
+validity perspectives into an 18$\times$17 coverage matrix. The audit
+identifies four gaps. First, benchmark coverage remains skewed toward
+ASR, spoken question answering, and emotion (12/18 each), while safety
+(4/18), tool use (2/18), latency (1/18), and privacy (0/18) are rarely
+evaluated. Second, no benchmark occupies the
+Use-case$\times$Capability cell in our scope--lens taxonomy. Third,
+six interaction-first systems (Moshi, GPT-4o-Audio, MiniCPM-o~4.5,
+Voila, OmniFlatten, Gemini~Live) appear in at most one public
+benchmark. Fourth, five documented cross-stage couplings show that
+training, evaluation, deployment, and safety are interdependent. We
+synthesize these findings into benchmark design principles,
+Speech-LLM Evaluation and Deployment Card templates, and a
+speech-specific governance framework for audio jailbreaks, voice
+cloning, speaker re-identification, and provenance under
+transformation.
 \end{abstract}
 
 \begin{highlights}
-\item Audit of 18 Speech LLM benchmarks (2024--2026) shows privacy 0/18, latency 1/18, safety 4/18.
-\item Two-axis taxonomy exposes an empty Use-case$\times$Capability cell.
-\item Six interaction-first systems appear in $\leq$1 benchmark each, a temporal record gap.
-\item Five documented training--evaluation--deployment--safety couplings drive the recommendations.
-\item Deployment and Evaluation Card templates enable joint reporting of accuracy, latency, and safety.
+\item We audit 18 Speech LLM benchmarks and show that privacy (0/18), latency (1/18), and safety (4/18) remain under-evaluated.
+\item A scope-by-lens taxonomy reveals no benchmark that jointly evaluates realistic use cases and specific speech capabilities.
+\item A reverse model audit shows that six interaction-first systems are absent from most public benchmark records.
+\item Five cross-stage couplings show how training choices propagate into evaluation blind spots, deployment failures, and safety risks.
+\item We propose evaluation and deployment reporting cards that connect accuracy, latency, streaming behavior, safety, and governance.
 \end{highlights}
 
 \begin{keywords}
 Speech large language models \sep Audio language models \sep Multimodal evaluation \sep Streaming inference \sep Responsible AI \sep Survey
 \end{keywords}
+
+%% Suppress the empty "ORCID(s):" footnote line the class emits by default.
+%% \printorcid is defined in cas-common.sty; we redefine (not modify) it here.
+\let\printorcid\relax
 
 \maketitle
 

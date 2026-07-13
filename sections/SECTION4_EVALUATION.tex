@@ -122,20 +122,51 @@ the 23 that appeared in two or more benchmarks are listed in the
 supplementary \texttt{ModelEvalMatrix.md} and drive the coverage
 statistics quoted in Section~\ref{subsec:eval_models}.
 
-\paragraph{Coding protocol.}
+\paragraph{Coding rubric.}
 Each benchmark was coded as a binary vector over the 17 capability
-dimensions in Figure~\ref{fig:benchmark_coverage_bar}. A dimension was
-counted as 1 only when the benchmark explicitly defined a task,
-supplied test data, and reported a metric for that dimension; partial
-or implicit coverage was scored 0. We also recorded the scope
-(targeted probe, capability-focused suite, holistic suite,
+dimensions in Figure~\ref{fig:benchmark_coverage_bar}. A dimension is
+coded~1 for a benchmark \emph{iff both} (i) the benchmark explicitly
+defines a task, subset, or metric targeting that dimension, \emph{and}
+(ii) the benchmark publishes at least one quantitative result on that
+task or subset; otherwise it is coded~0. Ambiguous cases---where a
+dimension is mentioned, instructed, or implied but not backed by a
+defined subset with a reported number---are coded~0 with an explicit
+note in the reading log. This is a deliberately conservative
+convention: it undercounts rather than overcounts coverage, so the
+gaps we report are lower bounds on what is missing. We also recorded
+the scope (targeted probe, capability-focused suite, holistic suite,
 use-case-grounded) and the dominant evaluative lens (capability, use
 case, phenomenon, knowledge) used in
-Table~\ref{tab:benchmark_taxonomy}. Coding was performed by a single
-reviewer with disagreements resolved by re-reading the original
-paper. We acknowledge that a single-coder protocol is a limitation:
-per-benchmark reading notes are released so that the coding can be
-independently audited, and Section~\ref{sec:limitations} discusses
+Table~\ref{tab:benchmark_taxonomy}.
+
+\paragraph{Worked coding examples.}
+Three recurring ambiguities illustrate how the rubric is applied.
+\begin{itemize}
+  \item \textbf{Safety.} AudioBench (\#01) is coded~0 for Safety
+  because it does not define a safety-specific subset, even though its
+  judge model receives a safety-related instruction; VoiceBench
+  (\#02) is coded~1 for Safety because it publishes refusal-rate
+  numbers over a dedicated adversarial-instruction subset.
+  \item \textbf{Latency.} SCENEBench (\#18) is coded~1 for Latency
+  because it reports median (p50) per-clip response times on a
+  scene-understanding subset; MMAU (\#05) is coded~0 because its
+  discussion of reasoning latency is qualitative and carries no
+  reported number.
+  \item \textbf{Privacy.} No benchmark in our corpus is coded~1 for
+  Privacy. The closest candidate, VoiceAgentBench (\#12), reports a
+  ``refusal to leak PII'' subset, which we counted under Safety rather
+  than Privacy per our conservative convention that Privacy requires
+  explicit membership-inference, speaker-linking, or re-identification
+  testing.
+\end{itemize}
+
+\paragraph{Reliability disclosure.}
+The coding was performed by a single reviewer and we do not report
+Cohen's~$\kappa$; to enable community validation, we release the 18
+per-benchmark reading notes as supplementary material
+(\texttt{supplementary/notes/01\_*.md}--\texttt{18\_*.md}), so any 0
+or 1 above can be traced to the specific paragraph or metric
+definition it was drawn from. Section~\ref{sec:limitations} discusses
 this threat to validity explicitly.
 
 \subsection{A Two-Axis Taxonomy of Speech LLM Benchmarks}
@@ -178,27 +209,27 @@ Scope / Lens & Capability & Use case & Phenomenon & Knowledge \\
 
 Targeted probe
 &
-SALMon (8 tasks)\citep{maimon2024salmon};
-VoxEmo (35 corpora)\citep{zhang2026voxemo};
-StyleBench (4 dims)\citep{zhao2026stylebench};
-SD-Eval\tnote{$\dagger$} (4 dims, 7.3K)\citep{ao2024sdeval}
+SALMon (8 tasks) \citep{maimon2024salmon};
+VoxEmo (35 corpora) \citep{zhang2026voxemo};
+StyleBench (4 dims) \citep{zhao2026stylebench};
+SD-Eval\tnote{$\dagger$} (4 dims, 7.3K) \citep{ao2024sdeval}
 &
 \na
 &
-LoASR-Bench (25 langs)\citep{chen2026loasrbench};
-Hearing2Translate (16 benchmarks)\citep{papi2025hearing2translate};
-SCENEBench\tnote{$\ddagger$} (4 tasks)\citep{iyer2026scenebench}
+LoASR-Bench (25 langs) \citep{chen2026loasrbench};
+Hearing2Translate (16 benchmarks) \citep{papi2025hearing2translate};
+SCENEBench\tnote{$\ddagger$} (4 tasks) \citep{iyer2026scenebench}
 &
-AKB-2000 (2K Q)\citep{lu2026akb2000}
+AKB-2000 (2K Q) \citep{lu2026akb2000}
 \\
 \addlinespace[0.35em]
 
 Capability-focused
 &
-AudioBench (26 datasets, 100K+)\citep{wang2025audiobench};
-AIR-Bench (19 tasks, 19K+)\citep{yang2024airbench};
-FMSU-Bench\tnote{$\star$} (14 dims, 20K)\citep{li2026fmsubench};
-SeaLLMs-Audio (1.58M train, 580 test)\citep{liu2025seallmsaudio}
+AudioBench (26 datasets, 100K+) \citep{wang2025audiobench};
+AIR-Bench (19 tasks, 19K+) \citep{yang2024airbench};
+FMSU-Bench\tnote{$\star$} (14 dims, 20K) \citep{li2026fmsubench};
+SeaLLMs-Audio (1.58M train, 580 test) \citep{liu2025seallmsaudio}
 &
 \na
 &
@@ -210,8 +241,8 @@ SeaLLMs-Audio (1.58M train, 580 test)\citep{liu2025seallmsaudio}
 
 Holistic
 &
-Dynamic-SUPERB\tnote{$\dagger$} (180 tasks)\citep{huang2024dynamicsuperb};
-MMAU (10K Q, 27 skills)\citep{sakshi2024mmau}
+Dynamic-SUPERB\tnote{$\dagger$} (180 tasks) \citep{huang2024dynamicsuperb};
+MMAU (10K Q, 27 skills) \citep{sakshi2024mmau}
 &
 \na
 &
@@ -225,10 +256,10 @@ Use-case-grounded
 &
 \na
 &
-VoiceBench\tnote{$\star$} (8 tasks, 3K)\citep{chen2024voicebench};
-VoiceAgentBench (6 tasks, 6K)\citep{jain2025voiceagentbench};
-Audio2Tool (8 tiers, 30K)\citep{pahwa2026audio2tool};
-SLUE-PERB\tnote{$\dagger$} (4 tasks, 22K)\citep{shon2023slue}
+VoiceBench\tnote{$\star$} (8 tasks, 3K) \citep{chen2024voicebench};
+VoiceAgentBench (6 tasks, 6K) \citep{jain2025voiceagentbench};
+Audio2Tool (8 tiers, 30K) \citep{pahwa2026audio2tool};
+SLUE-PERB\tnote{$\dagger$} (4 tasks, 22K) \citep{shon2023slue}
 &
 \na
 &
@@ -304,9 +335,10 @@ quality in only one (StyleBench), and privacy or speaker anonymity in
 none of the 18 benchmarks analyzed. We elaborate the latency and safety gaps in
 Section~\ref{sec:deployment} and Section~\ref{sec:safety_privacy_governance}, respectively.
 
-\begin{figure}[t]
+\begin{figure}[!ht]
 \centering
 \begin{tikzpicture}[
+  scale=1.2,
   every node/.style={font=\footnotesize},
   bar/.style={fill=blue!25, draw=blue!60},
   bargap/.style={fill=orange!30, draw=orange!60},
@@ -358,7 +390,7 @@ matrix is released as supplementary material.}
 \label{fig:benchmark_coverage_bar}
 \end{figure}
 
-The field is missing joint evaluation, not more benchmarks. A
+The core gap is not benchmark quantity, but joint evaluation across capability, timing, and safety. A
 capability may appear in several benchmarks while still being measured
 under incompatible data sources, prompts, metrics, or judge protocols, and
 the dimensions most needed for deployment (latency, safety, privacy,
@@ -483,6 +515,63 @@ distribution-aware scoring) often weakens the other (e.g., by demanding
 LLM judges that cannot represent label distributions)---so they must be
 balanced rather than maximized independently.
 
+\paragraph{A worked pilot.}
+To make the joint-reporting proposal concrete rather than aspirational,
+Table~\ref{tab:joint_metric_pilot} assembles a single worked example for
+one (benchmark, model) pair. We deliberately choose the pair with the
+most complete numeric coverage in our reading notes---FMSU-Bench with
+its FM-Speech model, which reports a top-model accuracy and its
+evaluation hardware---and we couple it with a published latency figure
+drawn from a serving-side study, because no benchmark in our pool
+reports accuracy and latency for the same model. The result is the
+\emph{minimum viable} joint report the field currently supports: even
+this best case must borrow its latency number from a different paper and
+leaves safety and reproducibility only partially populated, which is
+itself the operational-validity gap made visible.
+
+\begin{table}[!ht]
+\centering
+\caption{\textbf{Pilot: joint accuracy--latency--governance report for
+one benchmark.} As a worked example of the joint-metric reporting we
+advocate, this pilot combines a published accuracy number, a published
+latency/hardware setting, and a Deployment Card summary for a single
+(benchmark, model) pair.}
+\label{tab:joint_metric_pilot}
+\scriptsize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\columnwidth}{@{}>{\bfseries}l X l X@{}}
+\toprule
+Field & Value & Source & Deployment-Card entry \\
+\midrule
+Benchmark &
+FMSU-Bench &
+\citep{li2026fmsubench} &
+Task family: fine-grained speech understanding \\
+Model &
+FM-Speech &
+\citep{li2026fmsubench} &
+Version: as reported (progressive curriculum FT) \\
+Accuracy metric &
+72.8\% average accuracy (14 dims) &
+\citep{li2026fmsubench} &
+Coverage flag: reported \\
+Latency &
+48.99\,ms average TTFB (streaming TTS) &
+\citep{su2026ultralowtts} &
+SLA class: mean TTFB (no p50/p95 reported) \\
+Hardware &
+8$\times$ NVIDIA L20 GPUs (local, official config) &
+\citep{li2026fmsubench} &
+Reproducible: partial \\
+Safety &
+not reported &
+--- &
+gap \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
 \subsection{Which Models Are Actually Evaluated? Reporting Bias and Deployment Mismatch}
 \label{subsec:eval_models}
 
@@ -517,6 +606,30 @@ absent from our pool). This is precisely the deployment regime that
 motivates the Speech-LLM concept, and it is precisely the regime that
 existing benchmarks fail to evaluate. We elaborate the deployment
 implications of this gap in Section~\ref{sec:deployment}.
+
+\begin{table}[!ht]
+\centering
+\caption{\textbf{Interaction-first systems in the 18-benchmark corpus.}
+Six systems designed for real-time bidirectional or full-duplex
+interaction appear in at most one public benchmark. Counts are derived
+from the model-evaluation matrix in the supplementary material.}
+\label{tab:interaction_first_coverage}
+\footnotesize
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}llc@{}}
+\toprule
+\textbf{System} & \textbf{Benchmarks (of 18)} & \textbf{Count} \\
+\midrule
+Moshi                          & VoiceBench (\#02) & 1/18 \\
+GPT-4o-Audio (real-time mode)  & VoiceBench (\#02) & 1/18 \\
+MiniCPM-o 4.5                  & ---               & 0/18 \\
+Voila                          & ---               & 0/18 \\
+OmniFlatten                    & ---               & 0/18 \\
+Gemini Live                    & ---               & 0/18 \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \subsection{Validity Gaps and Benchmark Design Principles}
 \label{subsec:eval_gaps}
