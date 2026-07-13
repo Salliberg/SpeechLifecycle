@@ -9,7 +9,11 @@ luo2025openomniadvancingopensourceomnimodal}. As consumer voice
 assistants, agentic voice systems, and full-duplex models move from
 benchmarks into production, the question is no longer only how to
 train a Speech LLM, but whether the trained model can be evaluated
-reliably, deployed responsively, and governed responsibly.
+reliably, deployed responsively, and governed responsibly. Information-science
+research on voice and conversational agents underscores that these
+deployment concerns are user-facing as much as technical: adoption hinges
+on trust \citep{zhan2024healthcare} and on privacy expectations that
+conversational systems routinely strain \citep{gumusel2024privacy}.
 
 \paragraph{Why text-LLM recipes do not transfer.}
 A cascaded Automatic Speech Recognition (ASR) $\rightarrow$ LLM
@@ -37,8 +41,11 @@ evaluation gaps determine which deployment failures slip through;
 deployment constraints reshape acceptable training trade-offs; and
 safety risks span every stage. Rather than broadening the topic, the
 lifecycle framing sharpens it---it forces every section to be read
-through the lens of what evidence is missing for the others. This
-positioning distinguishes our work from prior Speech LLM surveys
+through the lens of what evidence is missing for the others. The framing
+also inherits the concern, raised for foundation models generally, that a
+single model propagates its properties---and its risks---across every
+downstream task and deployment built on it \citep{bommasani2021foundation}.
+This positioning distinguishes our work from prior Speech LLM surveys
 \citep{cui2024recent,peng2025surveyspeechlargelanguage} and broader
 audio-language reviews, which catalog how models are built but do not
 audit the conditions under which they can be trusted in deployment.

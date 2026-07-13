@@ -43,7 +43,10 @@ failures from different angles:
 
 The question for evaluation is therefore not only whether a model performs
 well on a task, but whether the benchmark measures the speech-specific
-behavior that matters for real use. Subsequent subsections audit whether
+behavior that matters for real use. This behavioural framing follows a
+methodological tradition in language-technology evaluation that tests
+models against targeted capabilities rather than aggregate accuracy alone
+\citep{ribeiro2020checklist}. Subsequent subsections audit whether
 current benchmarks meet that bar.
 
 \subsection{Benchmark Corpus, Sample, and Coding Procedure}
@@ -371,8 +374,10 @@ to measure under conditions that support the conclusions being drawn. Four
 forms of validity are especially relevant.
 
 \paragraph{Construct validity.}
-Construct validity asks whether the scoring method matches the target
-capability. Multiple-choice formats, as in MMAU and AKB-2000
+Construct validity, in the classical measurement sense, asks whether a
+test score supports the inferences drawn from it about an underlying
+construct \citep{messick1995validity}; for benchmarks it asks whether the
+scoring method matches the target capability. Multiple-choice formats, as in MMAU and AKB-2000
 \citep{sakshi2024mmau,lu2026akb2000}, improve reproducibility but
 underrepresent open-ended semantic behavior. Rule-based free-response
 metrics such as WER, CER, F1, and ROUGE are objective but brittle under
@@ -422,10 +427,18 @@ with 93\% agreement excluding ties \citep{liu2025seallmsaudio}; AIR-Bench
 explicitly documents position bias and mitigates with answer-swap voting
 \citep{yang2024airbench}; the canonical text-LLM judge-bias literature
 \citep{zheng2023judging} confirms that these issues are systemic, not
-benchmark-specific.
+benchmark-specific. Evidence from the information-science and
+human--computer-interaction communities reinforces this caution: LLM
+judges agree poorly with domain experts on knowledge-intensive tasks
+\citep{szymanski2025limitations}, and LLM reviewers struggle to reproduce
+human judgements even for a relatively bounded construct such as research
+originality \citep{huang2024qualified}.
 
 \paragraph{Evaluator validity: contamination risk.}
-A more serious risk emerges when proprietary LLMs
+A related risk is training-data contamination, which is difficult to rule
+out for benchmarks built on public corpora and can inflate scores in ways
+that ordinary evaluation does not reveal \citep{deng2024contamination}. A
+more serious variant emerges when proprietary LLMs
 help generate benchmark items, filter annotations, or score outputs. The
 AKB-2000 paper \citep{lu2026akb2000} explicitly acknowledges that
 proprietary LLMs co-curated its questions, capping their performance at

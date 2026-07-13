@@ -7,7 +7,7 @@ This section reviews six groups of risks and mitigations: input-side audio jailb
 
 \subsection{Speech-Specific Risk Surface}
 
-Speech LLMs expose semantic, acoustic, biometric, and synthetic-media risks at the same time. In text-only LLMs, harmful prompts are usually represented as discrete text tokens. In Speech LLMs, the input may pass through raw waveform encoders, speech tokenizers, ASR modules, acoustic projectors, or multimodal alignment layers before reaching the language backbone. These processing stages can change model behavior and create attack opportunities that are difficult to detect from transcripts alone.
+Speech LLMs expose semantic, acoustic, biometric, and synthetic-media risks at the same time. In text-only LLMs, harmful prompts are usually represented as discrete text tokens. In Speech LLMs, the input may pass through raw waveform encoders, speech tokenizers, ASR modules, acoustic projectors, or multimodal alignment layers before reaching the language backbone. These processing stages can change model behavior and create attack opportunities that are difficult to detect from transcripts alone. Recent AI-ethics work argues that audio language model deployments should be scoped by a principle of least privilege---granting a system access only to the acoustic information a task actually requires---precisely because raw audio carries far more than the intended semantic payload \citep{he2025modelhears}.
 
 \subsubsection{Input-Side Attacks: Harmful Spoken Prompts and Modality Transfer Failure}
 
@@ -150,11 +150,11 @@ For Speech LLM deployment, provenance should be treated as a stack rather than a
 \item Audit logs and incident response procedures.
 \end{itemize}
 
-In public-facing or high-risk settings, generated speech should remain traceable even when the audio watermark fails. Watermarking is useful but insufficient: it supports accountability, but it has to be combined with metadata, policy, monitoring, and operational safeguards.
+In public-facing or high-risk settings, generated speech should remain traceable even when the audio watermark fails. The secure-metadata layer is now being standardized outside the research literature: the C2PA Content Credentials specification attaches cryptographically signed provenance manifests to media, and news organizations have begun deploying it against deepfakes and disinformation \citep{strickland2024credentials}. Watermarking is useful but insufficient: it supports accountability, but it has to be combined with such signed metadata, policy, monitoring, and operational safeguards.
 
 \subsection{Governance, Documentation, and Compliance Gaps}
 
-The traceability stack above describes technical provenance mechanisms. This subsection turns to documentation and governance. Speech LLMs need documentation that covers not only model accuracy, but also intended use, prohibited use, data provenance, speaker privacy, audio safety testing, watermarking, logging, and incident response. General AI governance frameworks provide useful starting points, but they need speech-specific extensions.
+The traceability stack above describes technical provenance mechanisms. This subsection turns to documentation and governance. Speech LLMs need documentation that covers not only model accuracy, but also intended use, prohibited use, data provenance, speaker privacy, audio safety testing, watermarking, logging, and incident response. General AI governance frameworks provide useful starting points, but they need speech-specific extensions. Recent policy scholarship on generative-AI governance emphasizes that effective regimes must span the full model lifecycle---development, deployment, and post-deployment monitoring---rather than regulating a single release point \citep{taeihagh2025governance}, a lifecycle view that maps directly onto the speech-specific requirements below.
 
 \subsubsection{Model Documentation}
 

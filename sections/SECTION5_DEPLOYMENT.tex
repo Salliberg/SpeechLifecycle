@@ -120,7 +120,7 @@ This convergence changes the deployment target. The field no longer only needs f
 
 Speech LLM deployment should design, optimize, and describe systems as real-time interaction loops rather than as independent ASR, LLM, and TTS components. Speculative decoding, quantization, KV-cache pruning, streaming serving, and edge deployment all improve different pressure points, but their value is clearest when they are tied to the deployed interaction regime.
 
-First, deployment should move from isolated optimization to composed optimization. When a system combines quantization, speculative decoding, cache pruning, batching, or streaming policies, the evaluation should treat these choices as one deployment configuration whose combined behavior determines latency, quality, and memory growth.
+First, deployment should move from isolated optimization to composed optimization. When a system combines quantization, speculative decoding, cache pruning, batching, or streaming policies, the evaluation should treat these choices as one deployment configuration whose combined behavior determines latency, quality, and memory growth. Information-systems work on serving dialogue models makes the same point from the cost side: distilling a large model into a compact, knowledge-grounded one can preserve task quality while sharply reducing serving cost, so the reported quality--cost trade-off is itself part of the deployment claim \citep{hu2025roleplayer}.
 
 Second, deployment should make streaming state explicit. Input chunk size, output granularity, cache policy, audio duration, interruption setting, and simultaneous input-output status define the runtime state of a Speech LLM. These details connect component speedups to the actual interaction loop.
 
