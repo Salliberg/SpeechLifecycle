@@ -18,17 +18,22 @@ dialogue-oriented review \citep{ji2024wavchat}, an earlier speech
 foundation-model review \citep{latif2023sparks}, and a
 vision-centric large-multimodal-model safety survey
 \citep{ye2024survey}. Table~\ref{tab:survey_comparison} summarizes the
-comparison. All five treat their topic mainly as construction:
-which architectures exist, which training recipes work, which models
-achieve which benchmark scores. The present survey inverts that
-question. It asks under which conditions the resulting systems can be
-trusted, and it forces every section to be read through that lens.
+comparison. Most prior reviews emphasize model architectures,
+training strategies, capability taxonomies, or modality-specific
+risks; none of the five reviews compared in
+Table~\ref{tab:survey_comparison} combines benchmark meta-evaluation,
+deployment analysis, speech-specific governance, and explicit
+cross-stage coupling. The present survey inverts the usual framing.
+It asks under which conditions the resulting systems can be trusted,
+and it forces every section to be read through that lens.
 Concretely, the value added by this survey is threefold.
 
 First, the meta-evaluation of Section~\ref{sec:evaluation_benchmarking}
 audits 18 benchmarks along four validity axes rather than compiling a
-capability catalog. We found no prior Speech-LLM survey that does
-this, and the resulting evidence---17 capability dimensions,
+capability catalog. Among the five reviews compared in
+Table~\ref{tab:survey_comparison}, none conducts this form of
+validity-oriented benchmark audit, and the resulting
+evidence---17 capability dimensions,
 $18\times 17$ coverage matrix, four documented validity gaps---is
 released as supplementary material so that future benchmark designers
 can build on it or contest it.
@@ -62,13 +67,18 @@ downstream stage, and a documented consequence.
 \label{subsec:discussion_theoretical}
 
 The main theoretical contribution is to bring \emph{measurement
-validity} back into the discussion of Speech-LLM benchmarks. Classical
-psychometrics, from the original account of construct validity in
-psychological testing \citep{cronbach1955construct} to its unified
-score-meaning formulation \citep{messick1995validity}, distinguishes
-construct, ecological, evaluator, and
-operational validity as separate threats; language-technology
-evaluation has largely collapsed these into a single question of
+validity} back into the discussion of Speech-LLM benchmarks. Drawing
+on classical theories of construct validity---from the original
+account in psychological testing \citep{cronbach1955construct} to its
+unified score-meaning formulation \citep{messick1995validity}---and on
+broader evaluation concerns surrounding ecological realism, evaluator
+reliability, and operational deployment, we organize validity threats
+into four survey-specific categories: construct, ecological,
+evaluator, and operational. This adaptation extends
+measurement-oriented reasoning to Speech-LLM benchmarking without
+implying that all four categories originate from a single psychometric
+framework. Language-technology evaluation has largely collapsed these
+threats into a single question of
 ``does the model reach the state of the art on the benchmark?''. The
 audit in Section~\ref{sec:evaluation_benchmarking} shows that this
 collapse hides three systematic risks. Construct validity is

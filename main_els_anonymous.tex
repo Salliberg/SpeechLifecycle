@@ -69,21 +69,21 @@ explain how these models are built rather than whether they can be
 evaluated, deployed, and governed in real-world settings. We audit the
 field through a lifecycle lens spanning training, evaluation,
 deployment, and responsible design. Our corpus includes 18 Speech LLM
-benchmarks released between 2024 and June 2026 (3 peer-reviewed, 15
-arXiv preprints), coded across 17 capability dimensions and four
-validity perspectives into an 18$\times$17 coverage matrix. The audit
-identifies four gaps. First, benchmark coverage remains skewed toward
-ASR, spoken question answering, and emotion (12/18 each), while safety
-(4/18), tool use (2/18), latency (1/18), and privacy (0/18) are rarely
-evaluated. Second, no benchmark occupies the
+benchmarks released from 2023 through June 2026 (one 2023 benchmark
+and 17 from 2024--2026), coded across 17 capability dimensions and
+four validity perspectives into an 18$\times$17 coverage matrix. The
+audit yields four findings. First, benchmark coverage remains skewed
+toward ASR, spoken question answering, and emotion (12/18 each),
+while safety (4/18), tool use (2/18), latency (1/18), and privacy
+(0/18) are rarely evaluated. Second, no benchmark occupies the
 Use-case$\times$Capability cell in our scope--lens taxonomy. Third,
 six interaction-first systems (Moshi, GPT-4o-Audio, MiniCPM-o~4.5,
-Voila, OmniFlatten, Gemini~Live) appear in at most one public
-benchmark. Fourth, five documented cross-stage couplings show that
-training, evaluation, deployment, and safety are interdependent. We
-synthesize these findings into benchmark design principles,
-Speech-LLM Evaluation and Deployment Card templates, and a
-speech-specific governance framework for audio jailbreaks, voice
+Voila, OmniFlatten, Gemini~Live) appear in at most one benchmark in
+the corpus. Fourth, seven literature-grounded cross-stage couplings
+show that training, evaluation, deployment, and safety are
+interdependent. We synthesize these findings into benchmark design
+principles, Speech-LLM Evaluation and Deployment Card templates, and
+a speech-specific governance framework for audio jailbreaks, voice
 cloning, speaker re-identification, and provenance under
 transformation.
 \end{abstract}
@@ -92,7 +92,7 @@ transformation.
 \item We audit 18 Speech LLM benchmarks and show that privacy (0/18), latency (1/18), and safety (4/18) remain under-evaluated.
 \item A scope-by-lens taxonomy reveals no benchmark that jointly evaluates realistic use cases and specific speech capabilities.
 \item A reverse model audit shows that six interaction-first systems are absent from most public benchmark records.
-\item Five cross-stage couplings show how training choices propagate into evaluation blind spots, deployment failures, and safety risks.
+\item Seven literature-grounded cross-stage couplings connect training decisions to evaluation blind spots, deployment constraints, and speech-specific safety risks.
 \item We propose evaluation and deployment reporting cards that connect accuracy, latency, streaming behavior, safety, and governance.
 \end{highlights}
 
@@ -120,7 +120,7 @@ Speech large language models \sep Audio language models \sep Multimodal evaluati
 %% the references list. Wording follows the template in the IPM guide.
 \FloatBarrier
 \section*{Declaration of generative AI and AI-assisted technologies in the manuscript preparation process}
-During the preparation of this work, the authors used generative AI tools (large language models) to support language polishing, structural revision, and checklist-based editing of drafts. After using these tools the authors reviewed and edited the content as needed and take full responsibility for the content of the published article.
+During the preparation of this work, the authors used OpenAI ChatGPT to support language polishing, structural revision, and checklist-based editing of drafts. After using this tool, the authors reviewed and edited the content as needed and take full responsibility for the content of the published article.
 
 \section*{Data Availability}
 The benchmark coding matrix and supplementary reading notes supporting this survey are provided as supplementary material.

@@ -184,7 +184,7 @@ and matches or exceeds RLHF on summarization and dialogue. RLAIF-V
 with deconfounded generation and atomic claim decomposition; the 12B
 variant reduces its overall hallucination rate by 32.4\% through
 self-alignment, surpassing GPT-4V in trustworthiness. In speech,
-AlignSLM \citep{lin2025alignslmtextlessspokenlanguage} uses semantic
+Align-SLM \citep{lin2025alignslmtextlessspokenlanguage} uses semantic
 metrics on AI-generated speech continuations to construct preference data
 for DPO, achieving state-of-the-art results on spoken StoryCloze.
 
@@ -207,7 +207,7 @@ Section~\ref{sec:evaluation_benchmarking}.}
 \toprule
 \textbf{Aspect} & \textbf{RLHF} & \textbf{DPO} & \textbf{RLAIF} & \textbf{Speech-evaluation hook} \\
 \midrule
-\textbf{Annotation source} & Human preference pairs & Human preference pairs; some implementations mix synthetic data & AI-generated preference pairs & Speech requires acoustic + paralinguistic judgements; LLM judges are still moderate-correlation \citep{zheng2023judging} \\
+\textbf{Annotation source} & Human preference pairs & Human preference pairs; some implementations mix synthetic data & AI-generated preference pairs & Speech requires acoustic + paralinguistic judgments; LLM judges are still moderate-correlation \citep{zheng2023judging} \\
 \midrule
 \textbf{Optimization} & Policy gradient (e.g., PPO) & Direct preference loss & Reward learning or DPO-style & Construct/evaluator validity (Section~\ref{sec:evaluation_benchmarking}) determines which optimization signal is reliable \\
 \midrule
@@ -215,7 +215,7 @@ Section~\ref{sec:evaluation_benchmarking}.}
 \midrule
 \textbf{Engineering overhead} & High (multi-stage pipeline) & Moderate (single-stage) & Moderate (auto-labeling pipeline) & Operational validity hooks: alignment cost shapes deployment cycle (Section~\ref{sec:deployment}) \\
 \midrule
-\textbf{Speech adoption} & Limited (manual effort, slow iteration) & Promising: SpeechAlign, Align-SLM, OpenOmni & Emerging: RLAIF-V, AlignSLM & Adoption tracks the availability of speech-aware judges and benchmarks \\
+\textbf{Speech adoption} & Limited (manual effort, slow iteration) & Promising: SpeechAlign, Align-SLM, OpenOmni & Emerging: RLAIF-V, Align-SLM & Adoption tracks the availability of speech-aware judges and benchmarks \\
 \midrule
 \textbf{Scalability} & Limited by annotation cost & Improved efficiency & High (AI-supervised) & Scaling depends on whether evaluation can detect over-optimization (Section~\ref{sec:evaluation_benchmarking}) \\
 \bottomrule
@@ -248,7 +248,7 @@ explicitly for streaming, latency, or interruption handling. Models
 designed for offline benchmarks may compute correctly but respond too
 late for natural interaction, motivating the architecture and protocol
 choices analyzed in Section~\ref{sec:deployment}. Safety-aware training
-is similarly under-developed: text safety alignment does not
+is similarly underdeveloped: text safety alignment does not
 automatically transfer to audio inputs, as
 Section~\ref{sec:safety_privacy_governance} demonstrates.
 

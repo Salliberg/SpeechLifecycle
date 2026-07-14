@@ -25,8 +25,8 @@ defossez2024moshi}. End-to-end Speech LLMs
 remove these bottlenecks in principle, but the speech modality
 introduces challenges that text-only pipelines do not face:
 parallel speech-text data is scarce
-\citep{communication2023seamlessmultilingualexpressivestreaming,
-tan2025unsupervised}, modality gaps between audio and text are
+\citep{communication2023seamlessmultilingualexpressivestreaming},
+modality gaps between audio and text are
 non-trivial to bridge
 \citep{defossez2024moshi}, and paralinguistic
 signals carry meaning that purely lexical metrics cannot capture
@@ -245,23 +245,28 @@ feed back through re-training.}
 \label{fig:lifecycle}
 \end{figure}
 
-To make the cross-stage couplings concrete, Table~\ref{tab:coupling_evidence}
-records seven examples where a training, evaluation, or deployment choice
-documented in the literature produced a visible consequence in a
-downstream stage.
+To make the cross-stage couplings concrete,
+Table~\ref{tab:coupling_evidence} records seven examples where a
+training, evaluation, or deployment choice reported in the literature is
+plausibly connected to an effect in a downstream stage. Some rows
+report a direct empirical observation from the cited paper; others
+represent cross-paper synthesis or a design implication highlighted in
+this survey.
 
 \begin{table*}[t]
-\caption{Concrete cross-stage couplings observed in the literature
-covered by this survey. Each row links a specific upstream decision to
-a documented downstream consequence, illustrating that the four
-lifecycle stages are not independent.}
+\caption{Literature-grounded cross-stage couplings synthesized in this
+survey. Each row links a specific upstream decision to a downstream
+implication, illustrating that the four lifecycle stages are not
+independent. The final column mixes direct empirical observations from
+individual papers with cross-paper synthesis; interpretive rows should
+not be read as controlled causal experiments.}
 \label{tab:coupling_evidence}
 \centering
 \footnotesize
 \begin{tabularx}{\textwidth}{p{0.13\textwidth}XXX}
 \toprule
 \textbf{Upstream stage} & \textbf{Decision / observation} &
-\textbf{Downstream stage affected} & \textbf{Documented consequence} \\
+\textbf{Downstream stage affected} & \textbf{Downstream implication} \\
 \midrule
 Training &
 Whisper-style weakly supervised pretraining emphasizes transcription

@@ -43,7 +43,7 @@ failures from different angles:
 
 The question for evaluation is therefore not only whether a model performs
 well on a task, but whether the benchmark measures the speech-specific
-behavior that matters for real use. This behavioural framing follows a
+behavior that matters for real use. This behavioral framing follows a
 methodological tradition in language-technology evaluation that tests
 models against targeted capabilities rather than aggregate accuracy alone
 \citep{ribeiro2020checklist}. Subsequent subsections audit whether
@@ -191,8 +191,9 @@ column (lens). Cells with multiple entries indicate saturation of
 attention; empty cells indicate evaluation blind spots.
 \begin{table}[t]
 \centering
-\caption{Primary placement of 18 Speech LLM benchmarks (2024--2026) under a
-scope $\times$ lens taxonomy.}
+\caption{Primary placement of 18 Speech LLM benchmarks (2023--2026;
+one benchmark from 2023 and 17 from 2024--2026) under a scope
+$\times$ lens taxonomy.}
 \label{tab:benchmark_taxonomy}
 \scriptsize
 \setlength{\tabcolsep}{4pt}
@@ -381,7 +382,7 @@ Section~\ref{sec:deployment} and Section~\ref{sec:safety_privacy_governance}, re
 \node[font=\scriptsize, red!60!black]    at (5.8,2.2) {Deployment gaps ($\leq$4)};
 \end{tikzpicture}
 \caption{Capability coverage across 18 Speech LLM benchmarks
-(2024--2026). Each bar shows how many benchmarks in our corpus
+(2023--2026). Each bar shows how many benchmarks in our corpus
 explicitly evaluate the capability. Coverage is dominated by ASR,
 spoken question answering, and emotion; deployment-facing dimensions
 (safety, code-switching, tool use, latency, generation quality,
@@ -463,7 +464,7 @@ benchmark-specific. Evidence from the information-science and
 human--computer-interaction communities reinforces this caution: LLM
 judges agree poorly with domain experts on knowledge-intensive tasks
 \citep{szymanski2025limitations}, and LLM reviewers struggle to reproduce
-human judgements even for a relatively bounded construct such as research
+human judgments even for a relatively bounded construct such as research
 originality \citep{huang2024qualified}.
 
 \paragraph{Evaluator validity: contamination risk.}
@@ -517,32 +518,33 @@ balanced rather than maximized independently.
 
 \paragraph{A worked pilot.}
 To make the joint-reporting proposal concrete rather than aspirational,
-Table~\ref{tab:joint_metric_pilot} assembles a single worked example for
-one (benchmark, model) pair. We deliberately choose the pair with the
-most complete numeric coverage in our reading notes---FMSU-Bench with
-its FM-Speech model, which reports a top-model accuracy and its
-evaluation hardware---and we couple it with a published latency figure
-drawn from a serving-side study, because no benchmark in our pool
-reports accuracy and latency for the same model. The result is the
-\emph{minimum viable} joint report the field currently supports: even
-this best case must borrow its latency number from a different paper and
-leaves safety and reproducibility only partially populated, which is
-itself the operational-validity gap made visible.
+Table~\ref{tab:joint_metric_pilot} assembles a single worked example
+for one (benchmark, model) pair. We deliberately choose the pair with
+the most complete numeric coverage in our reading notes---FMSU-Bench
+with its FM-Speech model, which reports a top-model accuracy and its
+evaluation hardware. All remaining Deployment-Card fields (latency,
+streaming mode, tail latency, safety, reproducibility artifacts) are
+listed as \emph{not reported} in the same source. Even for a
+benchmark-model pair with reported task performance and evaluation
+hardware, latency, streaming conditions, safety behavior, and
+tail-latency statistics remain unavailable; the missing fields
+illustrate the operational-validity gap without combining measurements
+from incompatible systems.
 
 \begin{table}[!ht]
 \centering
-\caption{\textbf{Pilot: joint accuracy--latency--governance report for
-one benchmark.} As a worked example of the joint-metric reporting we
-advocate, this pilot combines a published accuracy number, a published
-latency/hardware setting, and a Deployment Card summary for a single
-(benchmark, model) pair.}
+\caption{\textbf{Illustrative Deployment Card for FMSU-Bench /
+FM-Speech.} Fields are populated only when evidence is reported for
+the \emph{same} benchmark--model configuration; unreported fields
+expose current operational-evidence gaps rather than being filled from
+incompatible systems.}
 \label{tab:joint_metric_pilot}
 \scriptsize
 \setlength{\tabcolsep}{4pt}
 \renewcommand{\arraystretch}{1.25}
 \begin{tabularx}{\columnwidth}{@{}>{\bfseries}l X l X@{}}
 \toprule
-Field & Value & Source & Deployment-Card entry \\
+Field & Reported value & Source & Deployment-Card entry \\
 \midrule
 Benchmark &
 FMSU-Bench &
@@ -552,21 +554,34 @@ Model &
 FM-Speech &
 \citep{li2026fmsubench} &
 Version: as reported (progressive curriculum FT) \\
-Accuracy metric &
+Accuracy &
 72.8\% average accuracy (14 dims) &
 \citep{li2026fmsubench} &
 Coverage flag: reported \\
-Latency &
-48.99\,ms average TTFB (streaming TTS) &
-\citep{su2026ultralowtts} &
-SLA class: mean TTFB (no p50/p95 reported) \\
-Hardware &
+Evaluation hardware &
 8$\times$ NVIDIA L20 GPUs (local, official config) &
 \citep{li2026fmsubench} &
-Reproducible: partial \\
-Safety &
+Coverage flag: reported \\
+Latency &
 not reported &
 --- &
+gap \\
+Streaming mode &
+not reported &
+--- &
+gap \\
+Tail latency &
+not reported &
+--- &
+gap \\
+Safety evaluation &
+not reported &
+--- &
+gap \\
+Reproducibility artifacts &
+code, data, and model availability not documented for the same
+configuration &
+\citep{li2026fmsubench} &
 gap \\
 \bottomrule
 \end{tabularx}
@@ -596,8 +611,10 @@ This concentration creates reporting bias. Coverage of interaction-first
 systems is sparse and asymmetric. Moshi \citep{defossez2024moshi}
 and the GPT-4o-Audio real-time mode each appear in a single benchmark
 (VoiceBench \citep{chen2024voicebench}). Four other interaction-first
-systems---MiniCPM-o 4.5, Voila, OmniFlatten, and Gemini Live
-\citep{google2024gemini}---do not appear in any benchmark in our pool.
+systems---MiniCPM-o 4.5 \citep{cui2026minicpmo}, Voila
+\citep{shi2025voila}, OmniFlatten \citep{zhang2025omniflatten}, and
+Gemini Live \citep{google2024gemini}---do not appear in any benchmark
+in our pool.
 Ordinary GPT-4o or Gemini evaluations should be distinguished in
 practice from evaluations of their real-time audio interaction
 modes (the GPT-4o = 7 and Gemini = 4 counts in the matrix include
@@ -634,16 +651,22 @@ Gemini Live                    & ---               & 0/18 \\
 \subsection{Validity Gaps and Benchmark Design Principles}
 \label{subsec:eval_gaps}
 
-The four validity questions of Section~\ref{subsec:eval_validity} surface
-four parallel gaps. The construct validity gap: benchmarks repeatedly
-measure ASR, spoken QA, and emotion, but subjective and multi-channel
-capabilities need metrics that preserve ambiguity and cross-channel
-interaction. The ecological validity gap: synthetic data enables scale
-but weakens real-world claims unless paired with real-speech validation.
-The operational validity gap: latency, streaming, endpointing,
+The four validity perspectives of Section~\ref{subsec:eval_validity}
+yield four methodological gaps---construct, ecological, evaluator, and
+operational---plus a separate cross-cutting governance gap. The
+\emph{construct} validity gap: benchmarks repeatedly measure ASR,
+spoken QA, and emotion, but subjective and multi-channel capabilities
+need metrics that preserve ambiguity and cross-channel interaction.
+The \emph{ecological} validity gap: synthetic data enables scale but
+weakens real-world claims unless paired with real-speech validation.
+The \emph{evaluator} validity gap: LLM-as-judge scoring dominates
+open-ended subtasks despite only moderate human correlation, and few
+benchmarks report inter-annotator agreement or judge calibration. The
+\emph{operational} validity gap: latency, streaming, endpointing,
 interruption handling, and multi-turn stability are not jointly
-evaluated with content quality. The governance validity gap: safety,
-privacy, speaker anonymity, provenance, and identity risks are
+evaluated with content quality. A separate \emph{governance} gap sits
+outside the four measurement-validity categories: safety, privacy,
+speaker anonymity, provenance, and identity risks are
 under-integrated into mainstream benchmark design and demand the
 extended treatment in Section~\ref{sec:safety_privacy_governance}.
 
@@ -689,7 +712,8 @@ Evaluation is becoming a bottleneck for trustworthy Speech LLM
 deployment. Current benchmarks reveal individual capabilities but
 under-measure the interactions among speech content, timing,
 paralinguistics, safety, and real-world use that voice systems must
-handle simultaneously. The four validity gaps motivate the
-deployment-oriented analysis in Section~\ref{sec:deployment} and the
-safety-and-governance analysis in Section~\ref{sec:safety_privacy_governance}.
+handle simultaneously. These methodological and governance gaps
+motivate the deployment-oriented analysis in
+Section~\ref{sec:deployment} and the safety-and-governance analysis in
+Section~\ref{sec:safety_privacy_governance}.
 \FloatBarrier
